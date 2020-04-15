@@ -11,6 +11,21 @@ router.get('/', (req, res) => {
   res.json('API running!');
 });
 
+router.post('/recipe/:title', (req, res) => {
+  noteData = {
+    note: req.body.note,
+    author: req.body.author
+  }
+
+  recipes.findOneAndUpdate(
+    { title: req.params.title },
+    { $addToSet: { noteData } }
+  )
+  .then(updatedDoc => {
+    res.json(updatedDoc)
+  })
+})
+
 router.get('/recipes/:searchby/:searchfor', (req, res) => {
   const arr = [];
 
@@ -57,7 +72,7 @@ router.post('/recipes', (req, res) => {
     title: req.body.title,
     url: req.body.url,
     category: req.body.category,
-    date: new Date()
+    date: new Date(Date.now()).toLocaleString()
   };
 
   recipes
