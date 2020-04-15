@@ -18,15 +18,17 @@ function showSingleRecipe(recipe) {
   const header = document.createElement('h3')
   header.textContent = recipe.title
 
-  recipe.noteData.forEach((data) => {
-    const note = document.createElement('p')
-    note.textContent = data.note
-    const author = document.createElement('small')
-    author.textContent = data.author
+  if (recipe.noteData) {
+    recipe.noteData.forEach((data) => {
+      const note = document.createElement('p')
+      note.textContent = data.note
+      const author = document.createElement('small')
+      author.textContent = data.author
 
-    note.appendChild(author)
-    notesDiv.appendChild(note)
-  })
+      note.appendChild(author)
+      notesDiv.appendChild(note)
+    })
+  }
 
   const noteElement = document.createElement('form')
   noteElement.classList.add('note-form')
